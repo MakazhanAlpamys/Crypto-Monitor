@@ -4,9 +4,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'core/config/supabase_config.dart';
 import 'core/theme/app_theme.dart';
+import 'providers/providers.dart';
 import 'providers/auth_notifier.dart';
 import 'ui/pages/home/home_page.dart';
-import 'ui/pages/auth/login_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -45,10 +45,18 @@ class CryptoApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final themeMode = ref.watch(themeModeProvider);
+    
     return MaterialApp(
       title: 'CryptoTracker',
       debugShowCheckedModeBanner: false,
-      theme: AppTheme.darkTheme,
+      theme: AppTheme.lightTheme,
+      darkTheme: AppTheme.darkTheme,
+      themeMode: switch (themeMode) {
+        AppThemeMode.dark => ThemeMode.dark,
+        AppThemeMode.light => ThemeMode.light,
+        AppThemeMode.system => ThemeMode.system,
+      },
       home: const AuthWrapper(),
     );
   }

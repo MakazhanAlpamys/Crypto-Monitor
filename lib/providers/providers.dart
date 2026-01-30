@@ -8,6 +8,7 @@ import '../data/models/coin_model.dart';
 import '../data/models/coin_detail_model.dart';
 import '../data/models/chart_data_model.dart';
 import '../data/models/user_model.dart';
+import '../core/localization/app_localizations.dart';
 
 // ==================== Repository Providers ====================
 
@@ -135,6 +136,13 @@ class WatchlistNotifier extends StateNotifier<AsyncValue<Set<String>>> {
   }
 
   Future<void> _loadWatchlist() async {
+    // Check if authenticated
+    final isAuthenticated = _ref.read(isAuthenticatedProvider);
+    if (!isAuthenticated) {
+      state = const AsyncValue.data({});
+      return;
+    }
+    
     try {
       final ids = await _repository.getWatchlistCoinIds();
       state = AsyncValue.data(ids.toSet());
@@ -144,6 +152,12 @@ class WatchlistNotifier extends StateNotifier<AsyncValue<Set<String>>> {
   }
 
   Future<void> toggle(String coinId) async {
+    // Check authentication first
+    final isAuthenticated = _ref.read(isAuthenticatedProvider);
+    if (!isAuthenticated) {
+      throw WatchlistNotAuthenticatedException();
+    }
+    
     final currentIds = state.valueOrNull ?? {};
     final isInList = currentIds.contains(coinId);
 
@@ -177,6 +191,12 @@ class WatchlistNotifier extends StateNotifier<AsyncValue<Set<String>>> {
     state = const AsyncValue.loading();
     await _loadWatchlist();
   }
+}
+
+/// Exception thrown when user is not authenticated and tries to use watchlist
+class WatchlistNotAuthenticatedException implements Exception {
+  @override
+  String toString() => 'Please sign in to manage watchlist';
 }
 
 final watchlistNotifierProvider = StateNotifierProvider<WatchlistNotifier, AsyncValue<Set<String>>>((ref) {
@@ -228,3 +248,15 @@ final themeModeProvider = StateProvider<AppThemeMode>((ref) => AppThemeMode.dark
 
 /// Notifications enabled provider
 final notificationsEnabledProvider = StateProvider<bool>((ref) => true);
+
+/// Language provider
+final languageProvider = StateProvider<AppLanguage>((ref) => AppLanguage.english);
+
+/// Localization provider
+final localizationProvider = Provider<AppLocalizations>((ref) {
+  final language = ref.watch(languageProvider);
+  return AppLocalizations(language);
+});
+
+/// Guest mode provider - user is browsing without signing in
+final isGuestModeProvider = StateProvider<bool>((ref) => false);

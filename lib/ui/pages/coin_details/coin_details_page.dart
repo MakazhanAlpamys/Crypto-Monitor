@@ -11,6 +11,7 @@ import '../../widgets/charts/price_chart.dart';
 import '../../widgets/cards/stat_card.dart';
 import '../../widgets/common/shimmer_loading.dart';
 import '../../widgets/common/glass_container.dart';
+import '../auth/login_page.dart';
 
 class CoinDetailsPage extends ConsumerWidget {
   final String coinId;
@@ -134,10 +135,14 @@ class CoinDetailsPage extends ConsumerWidget {
                       : 'Added to watchlist',
                 );
               }
+            } on WatchlistNotAuthenticatedException {
+              if (context.mounted) {
+                _showSignInDialog(context);
+              }
             } catch (e) {
               if (context.mounted) {
                 context.showSnackBar(
-                  'Please sign in to manage watchlist',
+                  'Failed to update watchlist',
                   isError: true,
                 );
               }
@@ -473,6 +478,39 @@ class CoinDetailsPage extends ConsumerWidget {
           ],
         ),
       ],
+    );
+  }
+
+  void _showSignInDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        backgroundColor: AppColors.surfaceDark,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
+        title: const Text('Sign In Required'),
+        content: const Text(
+          'Please sign in to add coins to your watchlist.',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: const Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => const LoginPage(),
+                ),
+              );
+            },
+            child: const Text('Sign In'),
+          ),
+        ],
+      ),
     );
   }
 }
