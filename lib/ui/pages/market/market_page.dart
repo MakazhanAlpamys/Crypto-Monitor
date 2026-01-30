@@ -7,6 +7,7 @@ import '../../../providers/providers.dart';
 import '../../widgets/cards/coin_card.dart';
 import '../../widgets/common/shimmer_loading.dart';
 import '../../widgets/common/custom_text_field.dart';
+import '../../widgets/sections/trending_section.dart';
 import '../coin_details/coin_details_page.dart';
 
 class MarketPage extends ConsumerStatefulWidget {
@@ -35,6 +36,7 @@ class _MarketPageState extends ConsumerState<MarketPage> {
   @override
   Widget build(BuildContext context) {
     final filteredCoins = ref.watch(filteredCoinsProvider);
+    final searchQuery = ref.watch(searchQueryProvider);
 
     return Scaffold(
       body: Container(
@@ -56,15 +58,76 @@ class _MarketPageState extends ConsumerState<MarketPage> {
               // Search bar
               _buildSearchBar(),
               const SizedBox(height: 8),
-              // Market stats
-              _buildMarketStats(),
-              const SizedBox(height: 8),
-              // Coin list
+              // Content
               Expanded(
-                child: filteredCoins.when(
-                  data: (coins) => _buildCoinList(coins),
-                  loading: () => const ShimmerCoinList(),
-                  error: (error, stack) => _buildErrorState(error.toString()),
+                child: RefreshIndicator(
+                  onRefresh: _onRefresh,
+                  color: AppColors.primary,
+                  backgroundColor: AppColors.surfaceLight,
+                  child: CustomScrollView(
+                    controller: _scrollController,
+                    physics: const AlwaysScrollableScrollPhysics(),
+                    slivers: [
+                      // Market stats
+                      SliverToBoxAdapter(child: _buildMarketStats()),
+                      // Trending section (only show when not searching)
+                      if (searchQuery.isEmpty) ...[
+                        const SliverToBoxAdapter(child: SizedBox(height: 16)),
+                        const SliverToBoxAdapter(
+                          child: TrendingCoinsSection(
+                            title: 'Top Gainers',
+                            showGainers: true,
+                          ),
+                        ),
+                        const SliverToBoxAdapter(child: SizedBox(height: 20)),
+                        const SliverToBoxAdapter(
+                          child: TrendingCoinsSection(
+                            title: 'Top Losers',
+                            showGainers: false,
+                          ),
+                        ),
+                        const SliverToBoxAdapter(child: SizedBox(height: 16)),
+                        SliverToBoxAdapter(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 16),
+                            child: Text(
+                              'All Coins',
+                              style: context.textTheme.titleLarge?.copyWith(
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ).animate().fadeIn(duration: 400.ms),
+                        ),
+                      ],
+                      const SliverToBoxAdapter(child: SizedBox(height: 8)),
+                      // Coin list
+                      filteredCoins.when(
+                        data: (coins) => coins.isEmpty
+                            ? SliverToBoxAdapter(child: _buildEmptyState())
+                            : SliverList(
+                                delegate: SliverChildBuilderDelegate(
+                                  (context, index) {
+                                    if (index >= coins.length) return null;
+                                    final coin = coins[index];
+                                    return CoinCard(
+                                      coin: coin,
+                                      index: index,
+                                      onTap: () => _navigateToDetails(coin.id),
+                                    );
+                                  },
+                                  childCount: coins.length,
+                                ),
+                              ),
+                        loading: () => const SliverToBoxAdapter(
+                          child: ShimmerCoinList(),
+                        ),
+                        error: (error, stack) => SliverToBoxAdapter(
+                          child: _buildErrorState(error.toString()),
+                        ),
+                      ),
+                      const SliverToBoxAdapter(child: SizedBox(height: 100)),
+                    ],
+                  ),
                 ),
               ),
             ],
@@ -201,7 +264,7 @@ class _MarketPageState extends ConsumerState<MarketPage> {
             ).animate().fadeIn(delay: 200.ms, duration: 400.ms);
           },
           loading: () => const SizedBox(height: 80),
-          error: (_, _) => const SizedBox(),
+          error: (error, stack) => const SizedBox(),
         );
   }
 
@@ -244,32 +307,6 @@ class _MarketPageState extends ConsumerState<MarketPage> {
       return '\$${(number / 1e6).toStringAsFixed(2)}M';
     }
     return '\$${number.toStringAsFixed(0)}';
-  }
-
-  Widget _buildCoinList(List coins) {
-    if (coins.isEmpty) {
-      return _buildEmptyState();
-    }
-
-    return RefreshIndicator(
-      onRefresh: _onRefresh,
-      color: AppColors.primary,
-      backgroundColor: AppColors.surfaceLight,
-      child: ListView.builder(
-        controller: _scrollController,
-        physics: const AlwaysScrollableScrollPhysics(),
-        padding: const EdgeInsets.only(top: 8, bottom: 100),
-        itemCount: coins.length,
-        itemBuilder: (context, index) {
-          final coin = coins[index];
-          return CoinCard(
-            coin: coin,
-            index: index,
-            onTap: () => _navigateToDetails(coin.id),
-          );
-        },
-      ),
-    );
   }
 
   void _navigateToDetails(String coinId) {

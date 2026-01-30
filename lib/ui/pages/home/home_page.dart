@@ -4,6 +4,7 @@ import '../../../core/theme/app_colors.dart';
 import '../../../providers/providers.dart';
 import '../market/market_page.dart';
 import '../watchlist/watchlist_page.dart';
+import '../portfolio/portfolio_page.dart';
 import 'profile_page.dart';
 
 class HomePage extends ConsumerWidget {
@@ -18,6 +19,7 @@ class HomePage extends ConsumerWidget {
         index: currentIndex,
         children: const [
           MarketPage(),
+          PortfolioPage(),
           WatchlistPage(),
           ProfilePage(),
         ],
@@ -46,7 +48,7 @@ class HomePage extends ConsumerWidget {
       ),
       child: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
@@ -62,13 +64,21 @@ class HomePage extends ConsumerWidget {
                 ref: ref,
                 index: 1,
                 currentIndex: currentIndex,
+                icon: Icons.pie_chart_outline,
+                activeIcon: Icons.pie_chart,
+                label: 'Portfolio',
+              ),
+              _buildNavItem(
+                ref: ref,
+                index: 2,
+                currentIndex: currentIndex,
                 icon: Icons.star_border,
                 activeIcon: Icons.star,
                 label: 'Watchlist',
               ),
               _buildNavItem(
                 ref: ref,
-                index: 2,
+                index: 3,
                 currentIndex: currentIndex,
                 icon: Icons.person_outline,
                 activeIcon: Icons.person,

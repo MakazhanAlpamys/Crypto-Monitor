@@ -1,6 +1,6 @@
 # CryptoTracker
 
-A premium cryptocurrency tracking application built with Flutter. Monitor real-time crypto prices, manage your watchlist, and stay updated with the latest market trends.
+A premium cryptocurrency tracking application built with Flutter. Monitor real-time crypto prices, manage your portfolio, track your watchlist, exchange crypto assets, and stay updated with the latest market trends.
 
 ![Flutter](https://img.shields.io/badge/Flutter-3.x-blue)
 ![Dart](https://img.shields.io/badge/Dart-3.x-blue)
@@ -13,6 +13,25 @@ A premium cryptocurrency tracking application built with Flutter. Monitor real-t
 - Price charts with multiple time ranges (24h, 7d, 30d, 90d, 1y)
 - Market cap, volume, and supply statistics
 - All-time high/low tracking
+- **Top Gainers & Top Losers** sections with horizontal scrolling cards
+- Mini sparkline charts for quick trend visualization
+
+### 💼 Portfolio Management (NEW!)
+- Track your crypto holdings with beautiful UI
+- Total balance card with gradient design
+- Pie chart distribution of assets
+- Profit/Loss tracking per asset and overall
+- 24h change monitoring
+- Quick actions: Deposit, Withdraw, Exchange
+- Individual asset performance tracking
+
+### 💱 Exchange (NEW!)
+- Simulated crypto-to-crypto exchange
+- Buy/Sell mode toggle
+- Real-time exchange rate calculation
+- Fee estimation display
+- Coin selection modal with search
+- Exchange confirmation dialog
 
 ### ⭐ Watchlist
 - Add favorite coins to watchlist
@@ -30,7 +49,7 @@ A premium cryptocurrency tracking application built with Flutter. Monitor real-t
 - 🇰🇿 Қазақша (Kazakh)
 
 ### 🎨 Themes
-- Dark Mode (default)
+- Dark Mode (default) with premium glass-morphism design
 - Light Mode
 - System Theme
 
@@ -39,12 +58,14 @@ A premium cryptocurrency tracking application built with Flutter. Monitor real-t
 - Supabase backend for authentication and data storage
 - CoinGecko API for cryptocurrency data
 - Responsive design for all screen sizes
+- Beautiful animations with flutter_animate
+- Interactive charts with fl_chart
 
 ## Screenshots
 
-| Market | Coin Details | Watchlist | Profile |
-|--------|--------------|-----------|---------|
-| 📈 | 📊 | ⭐ | 👤 |
+| Market | Portfolio | Exchange | Coin Details |
+|--------|-----------|----------|--------------|
+| 📈 | 💼 | 💱 | 📊 |
 
 ## Getting Started
 
@@ -80,19 +101,33 @@ flutter run
 ```
 lib/
 ├── core/
-│   ├── config/          # App configuration
+│   ├── config/          # App configuration (API, Supabase)
 │   ├── constants/       # App constants
 │   ├── localization/    # Multi-language support
-│   ├── theme/           # App themes (dark/light)
-│   └── utils/           # Utility functions
+│   ├── theme/           # App themes (dark/light) & colors
+│   └── utils/           # Utility functions & formatters
 ├── data/
-│   ├── datasources/     # API clients
-│   ├── models/          # Data models
+│   ├── datasources/     # API clients (CoinGecko)
+│   ├── models/          # Data models (Coin, Portfolio, Chart)
 │   └── repositories/    # Data repositories
 ├── providers/           # Riverpod providers
+│   ├── providers.dart   # Main providers
+│   ├── portfolio_provider.dart  # Portfolio state management
+│   └── auth_notifier.dart       # Auth state
 └── ui/
-    ├── pages/           # Screen pages
-    └── widgets/         # Reusable widgets
+    ├── pages/
+    │   ├── auth/        # Login, Register pages
+    │   ├── coin_details/ # Coin details with charts
+    │   ├── exchange/    # Crypto exchange page
+    │   ├── home/        # Home & Profile pages
+    │   ├── market/      # Market overview page
+    │   ├── portfolio/   # Portfolio management page
+    │   └── watchlist/   # Watchlist page
+    └── widgets/
+        ├── cards/       # Coin cards, stat cards
+        ├── charts/      # Price charts
+        ├── common/      # Glass container, shimmer, text fields
+        └── sections/    # Trending section
 ```
 
 ## Technologies Used
@@ -102,7 +137,35 @@ lib/
 - **Supabase** - Backend (Auth, Database)
 - **CoinGecko API** - Cryptocurrency data
 - **fl_chart** - Charts
+- **flutter_animate** - Animations
 - **Google Fonts** - Typography
+- **Dio** - HTTP client
+- **cached_network_image** - Image caching
+
+## New Features in v2.0
+
+### Portfolio Page
+- Beautiful gradient balance card
+- Asset distribution pie chart
+- Individual asset tracking with P/L
+- Quick action buttons
+
+### Exchange Page
+- Buy/Sell cryptocurrency simulation
+- Real-time rate calculation
+- Network and exchange fee display
+- Coin selector with search
+
+### Trending Section
+- Top Gainers horizontal scroll
+- Top Losers horizontal scroll
+- Mini sparkline charts
+- Animated cards
+
+### Enhanced Navigation
+- 4-tab bottom navigation (Market, Portfolio, Watchlist, Profile)
+- Smooth transitions
+- Active state indicators
 
 ## API
 
@@ -121,3 +184,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 - [CoinGecko](https://www.coingecko.com/) for providing cryptocurrency data API
 - [Supabase](https://supabase.com/) for backend infrastructure
 - Flutter community for amazing packages
+- CryptoHub project for design inspiration

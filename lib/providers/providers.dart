@@ -10,6 +10,8 @@ import '../data/models/chart_data_model.dart';
 import '../data/models/user_model.dart';
 import '../core/localization/app_localizations.dart';
 
+export 'portfolio_provider.dart';
+
 // ==================== Repository Providers ====================
 
 final coinGeckoApiProvider = Provider<CoinGeckoApi>((ref) {
