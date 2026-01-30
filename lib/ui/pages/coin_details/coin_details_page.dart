@@ -152,7 +152,7 @@ class CoinDetailsPage extends ConsumerWidget {
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
               color: isInWatchlist
-                  ? AppColors.warning.withOpacity(0.2)
+                  ? AppColors.warning.withValues(alpha: 0.2)
                   : AppColors.surfaceLight,
               borderRadius: BorderRadius.circular(12),
             ),
@@ -197,7 +197,7 @@ class CoinDetailsPage extends ConsumerWidget {
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                 decoration: BoxDecoration(
-                  color: changeColor.withOpacity(0.15),
+                  color: changeColor.withValues(alpha: 0.15),
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: Row(
@@ -424,8 +424,8 @@ class CoinDetailsPage extends ConsumerWidget {
           padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
             color: isPositive
-                ? AppColors.success.withOpacity(0.1)
-                : AppColors.error.withOpacity(0.1),
+                ? AppColors.success.withValues(alpha: 0.1)
+                : AppColors.error.withValues(alpha: 0.1),
             borderRadius: BorderRadius.circular(12),
           ),
           child: Icon(

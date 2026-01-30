@@ -100,8 +100,8 @@ class GradientGlassCard extends StatelessWidget {
       gradient: LinearGradient(
         colors: gradientColors ??
             [
-              AppColors.surfaceLight.withOpacity(0.8),
-              AppColors.cardBackground.withOpacity(0.6),
+              AppColors.surfaceLight.withValues(alpha: 0.8),
+              AppColors.cardBackground.withValues(alpha: 0.6),
             ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,

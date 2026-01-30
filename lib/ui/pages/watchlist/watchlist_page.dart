@@ -79,8 +79,8 @@ class WatchlistPage extends ConsumerWidget {
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [
-                  AppColors.warning.withOpacity(0.2),
-                  AppColors.warning.withOpacity(0.1),
+                  AppColors.warning.withValues(alpha: 0.2),
+                  AppColors.warning.withValues(alpha: 0.1),
                 ],
               ),
               borderRadius: BorderRadius.circular(12),
@@ -126,7 +126,7 @@ class WatchlistPage extends ConsumerWidget {
                   padding: const EdgeInsets.only(right: 24),
                   margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
                   decoration: BoxDecoration(
-                    color: AppColors.error.withOpacity(0.2),
+                    color: AppColors.error.withValues(alpha: 0.2),
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: const Icon(
@@ -196,7 +196,7 @@ class WatchlistPage extends ConsumerWidget {
             Container(
               padding: const EdgeInsets.all(24),
               decoration: BoxDecoration(
-                color: AppColors.warning.withOpacity(0.1),
+                color: AppColors.warning.withValues(alpha: 0.1),
                 shape: BoxShape.circle,
               ),
               child: const Icon(
@@ -304,7 +304,7 @@ class WatchlistPage extends ConsumerWidget {
             Container(
               padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
-                color: AppColors.error.withOpacity(0.1),
+                color: AppColors.error.withValues(alpha: 0.1),
                 shape: BoxShape.circle,
               ),
               child: const Icon(

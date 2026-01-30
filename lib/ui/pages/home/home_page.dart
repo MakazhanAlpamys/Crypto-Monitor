@@ -38,7 +38,7 @@ class HomePage extends ConsumerWidget {
         ),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.3),
+            color: Colors.black.withValues(alpha: 0.3),
             blurRadius: 20,
             offset: const Offset(0, -5),
           ),
@@ -103,8 +103,8 @@ class HomePage extends ConsumerWidget {
           gradient: isSelected
               ? LinearGradient(
                   colors: [
-                    AppColors.primary.withOpacity(0.2),
-                    AppColors.primary.withOpacity(0.1),
+                    AppColors.primary.withValues(alpha: 0.2),
+                    AppColors.primary.withValues(alpha: 0.1),
                   ],
                 )
               : null,

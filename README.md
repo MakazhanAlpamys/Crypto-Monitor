@@ -57,7 +57,7 @@ A premium cryptocurrency tracking application built with Flutter. Monitor real-t
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/crypto.git
+git clone https://github.com/MakazhanAlpamys/Crypto-Monitor.git
 cd crypto
 ```
 

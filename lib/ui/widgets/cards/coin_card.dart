@@ -43,7 +43,7 @@ class CoinCard extends StatelessWidget {
             gradient: LinearGradient(
               colors: [
                 AppColors.cardBackground,
-                AppColors.surfaceLight.withOpacity(0.5),
+                AppColors.surfaceLight.withValues(alpha: 0.5),
               ],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
@@ -151,7 +151,7 @@ class CoinCard extends StatelessWidget {
         color: AppColors.surfaceLight,
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.2),
+            color: Colors.black.withValues(alpha: 0.2),
             blurRadius: 8,
             offset: const Offset(0, 2),
           ),
@@ -190,7 +190,7 @@ class CoinCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
-        color: color.withOpacity(0.15),
+        color: color.withValues(alpha: 0.15),
         borderRadius: BorderRadius.circular(8),
       ),
       child: Row(

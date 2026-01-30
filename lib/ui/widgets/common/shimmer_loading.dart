@@ -16,7 +16,7 @@ class ShimmerLoading extends StatelessWidget {
   Widget build(BuildContext context) {
     return Shimmer.fromColors(
       baseColor: AppColors.surfaceLight,
-      highlightColor: AppColors.surfaceDark.withOpacity(0.5),
+      highlightColor: AppColors.surfaceDark.withValues(alpha: 0.5),
       child: child,
     );
   }

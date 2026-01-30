@@ -72,9 +72,9 @@ class AppColors {
   
   static LinearGradient shimmerGradient = LinearGradient(
     colors: [
-      surfaceLight.withOpacity(0.5),
-      surfaceLight.withOpacity(0.8),
-      surfaceLight.withOpacity(0.5),
+      surfaceLight.withValues(alpha: 0.5),
+      surfaceLight.withValues(alpha: 0.8),
+      surfaceLight.withValues(alpha: 0.5),
     ],
     stops: const [0.0, 0.5, 1.0],
     begin: const Alignment(-1.5, -0.3),

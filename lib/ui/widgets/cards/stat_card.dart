@@ -28,8 +28,8 @@ class StatCard extends StatelessWidget {
         gradient: isHighlighted
             ? LinearGradient(
                 colors: [
-                  AppColors.primary.withOpacity(0.2),
-                  AppColors.primary.withOpacity(0.1),
+                  AppColors.primary.withValues(alpha: 0.2),
+                  AppColors.primary.withValues(alpha: 0.1),
                 ],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
@@ -37,7 +37,7 @@ class StatCard extends StatelessWidget {
             : LinearGradient(
                 colors: [
                   AppColors.cardBackground,
-                  AppColors.surfaceLight.withOpacity(0.5),
+                  AppColors.surfaceLight.withValues(alpha: 0.5),
                 ],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
@@ -45,7 +45,7 @@ class StatCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
           color: isHighlighted
-              ? AppColors.primary.withOpacity(0.3)
+              ? AppColors.primary.withValues(alpha: 0.3)
               : AppColors.glassBorder,
         ),
       ),
@@ -118,9 +118,9 @@ class PriceChangeCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       decoration: BoxDecoration(
-        color: color.withOpacity(0.1),
+        color: color.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: color.withOpacity(0.2)),
+        border: Border.all(color: color.withValues(alpha: 0.2)),
       ),
       child: Column(
         children: [

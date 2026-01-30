@@ -160,8 +160,8 @@ class _MarketPageState extends ConsumerState<MarketPage> {
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
-                    AppColors.primary.withOpacity(0.1),
-                    AppColors.gradientBlueEnd.withOpacity(0.1),
+                    AppColors.primary.withValues(alpha: 0.1),
+                    AppColors.gradientBlueEnd.withValues(alpha: 0.1),
                   ],
                 ),
                 borderRadius: BorderRadius.circular(16),
@@ -201,7 +201,7 @@ class _MarketPageState extends ConsumerState<MarketPage> {
             ).animate().fadeIn(delay: 200.ms, duration: 400.ms);
           },
           loading: () => const SizedBox(height: 80),
-          error: (_, __) => const SizedBox(),
+          error: (_, _) => const SizedBox(),
         );
   }
 
@@ -332,7 +332,7 @@ class _MarketPageState extends ConsumerState<MarketPage> {
             Container(
               padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
-                color: AppColors.error.withOpacity(0.1),
+                color: AppColors.error.withValues(alpha: 0.1),
                 shape: BoxShape.circle,
               ),
               child: const Icon(

@@ -229,8 +229,8 @@ class _PriceChartState extends State<PriceChart> {
             show: true,
             gradient: LinearGradient(
               colors: [
-                color.withOpacity(0.3),
-                color.withOpacity(0.0),
+                color.withValues(alpha: 0.3),
+                color.withValues(alpha: 0.0),
               ],
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
